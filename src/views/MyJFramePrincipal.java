@@ -2,7 +2,6 @@ package views;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,6 +20,8 @@ public class MyJFramePrincipal extends JFrame {
 	private JTextField terminals, noTerminals, axiomaticSymbol, productions;
 	private ActionListener l;
 	private JPanel grammarCreator, grammar;
+
+	private JPanel grammarShow;
 
 	public MyJFramePrincipal(ActionListener l) {
 		setSize(600, 600);
@@ -69,17 +70,43 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
+	public void addPanelGrammar(JPanel jPanel) {
+		remove(jPanel);
+		grammar = new JPanel();
+		grammar.setLayout(new GridLayout(4, 1));
+		grammar.add(editButton("Mostrar gramatica", Events.SHOW_GRAMMAR.name()));
+		grammar.add(editButton("Buscar palabra", Events.SEARCH_WORD.name()));
+		grammar.add(editButton("Crear nueva gramatica", Events.CREATE_NEW_GRAMMAR.name()));
+		grammar.add(editButton("Salir", Events.EXIT.name()));
+		add(grammar);
+		revalidate();
+		repaint();
+	}
+	
 	public void showGrammar(Grammar grammar) {
 		remove(this.grammar);
-		JPanel grammarShow = new JPanel();
-		grammarShow.add(new JLabel(grammar.getTerminals().toString()));
-		grammarShow.add(new JLabel(grammar.getNoTerminals().toString()));
-		grammarShow.add(new JLabel(grammar.getAxiomticSymbol()));
-		grammarShow.add(new JLabel(grammar.getProductions().toString()));
+		grammarShow = new JPanel();
+		grammarShow.setLayout(new GridLayout(5,1));
+		grammarShow.add(editLabel(grammar.getTerminals().toString(), "Simbolos terminales"));
+		grammarShow.add(editLabel(grammar.getNoTerminals().toString(), "Simbolos no terminales"));
+		grammarShow.add(editLabel(grammar.getAxiomticSymbol(), "Simbolo inicial Axiomtico"));
+		grammarShow.add(editLabel(grammar.getProductions().toString(), "Producciones"));
+		grammarShow.add(editButton("Regresar",Events.EXIT_TO_SHOW.name() ));
 		add(grammarShow);
 		revalidate();
 		repaint();
 	}
+	
+	public void exitToMainShow() {
+		addPanelGrammar(grammarShow);
+	}
+	
+	private JLabel editLabel(String text, String title) {
+		JLabel jLabel = new JLabel(text);
+		jLabel.setBorder(BorderFactory.createTitledBorder(title));
+		return jLabel;
+	}
+	
 	
 	private JButton editButton(String name, String commandName) {
 		JButton btn = new JButton(name);

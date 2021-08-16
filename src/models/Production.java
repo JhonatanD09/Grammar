@@ -17,5 +17,10 @@ public class Production {
 	public String getProduction() {
 		return production;
 	}
+	
+	@Override
+	public String toString() {
+		return producer + " => "+ production;
+	}
 
 }

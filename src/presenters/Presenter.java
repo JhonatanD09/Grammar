@@ -36,6 +36,9 @@ public class Presenter implements ActionListener {
 			break;
 		case SEARCH_WORD:
 			break;
+		case EXIT_TO_SHOW:
+			framePrincipal.exitToMainShow();
+			break;
 		case EXIT:
 			System.exit(0);
 			break;
