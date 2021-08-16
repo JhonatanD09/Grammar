@@ -16,7 +16,7 @@ public class Grammar {
 		this.noTerminals = noTerminals;
 		this.axiomticSymbol = axiomticSymbol;
 		this.productions = productions;
-		grammarTree = new GrammarTree(axiomticSymbol, productions);
+		grammarTree = new GrammarTree(axiomticSymbol,noTerminals, productions);
 	}
 
 	public String getAxiomticSymbol() {
@@ -35,8 +35,12 @@ public class Grammar {
 		return terminals;
 	}
 
-	public void showTree() {
-		showTree(grammarTree.getRoot(),"",0);
+//	public void showTree() {
+//		showTree(grammarTree.getRoot(),"",0);
+//	}
+	
+	public void searchWord(String word) {
+		grammarTree.searchWord(word);
 	}
 
 	private void showTree(NodeProduction production, String tab, int id) {

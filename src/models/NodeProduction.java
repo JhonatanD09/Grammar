@@ -23,6 +23,15 @@ public class NodeProduction {
 	public String getProduction() {
 		return production;
 	}
+
+	public boolean searchChild(NodeProduction id) {
+		for (NodeProduction nodeProduction : childs) {
+			if (nodeProduction.equals(id)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }

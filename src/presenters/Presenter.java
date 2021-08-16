@@ -38,7 +38,7 @@ public class Presenter implements ActionListener {
 			framePrincipal.addGrammarCreator();
 			break;
 		case SEARCH_WORD:
-			JOptionPane.showMessageDialog(null, "TO DO");
+			grammar.searchWord(JOptionPane.showInputDialog("Palabra"));
 			break;
 		case EXIT_TO_SHOW:
 			framePrincipal.exitToMainShow();
@@ -65,7 +65,7 @@ public class Presenter implements ActionListener {
 		if (valideSymbolsInProductions(terminals, noTerminals, productions)
 				&& valideAxiomaticSymbol(noTerminals, axiomatic)) {
 			grammar = new Grammar(terminals, noTerminals, axiomatic, productions);
-			grammar.showTree();
+//			grammar.showTree();
 			JOptionPane.showMessageDialog(null,"Gramatica creada con exito", "Completado", JOptionPane.PLAIN_MESSAGE);
 			framePrincipal.addPanelGrammar();
 		} else {
