@@ -2,13 +2,16 @@ package views;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import models.Grammar;
 import presenters.Events;
 
 public class MyJFramePrincipal extends JFrame {
@@ -17,21 +20,20 @@ public class MyJFramePrincipal extends JFrame {
 
 	private JTextField terminals, noTerminals, axiomaticSymbol, productions;
 	private ActionListener l;
-
-	private JPanel grammarCreator;
+	private JPanel grammarCreator, grammar;
 
 	public MyJFramePrincipal(ActionListener l) {
 		setSize(600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 		setLocationRelativeTo(null);
 
 		this.l = l;
-
-		
+		grammar = new JPanel();
 	}
 
 	public void addGrammarCreator() {
+		remove(grammar);
+
 		terminals = new JTextField();
 		setJTextField(terminals, "Ingrese los simbolos terminales separados por comas (,)  :");
 		noTerminals = new JTextField();
@@ -40,7 +42,7 @@ public class MyJFramePrincipal extends JFrame {
 		setJTextField(axiomaticSymbol, "Ingrese el simbolo inicial axiomatico  :");
 		productions = new JTextField();
 		setJTextField(productions, "Ingrese las producciones serparadas por comas (,) formato :(T>>a)");
-		
+
 		grammarCreator = new JPanel();
 		grammarCreator.setLayout(new GridLayout(5, 1, 10, 10));
 		grammarCreator.add(terminals);
@@ -49,8 +51,36 @@ public class MyJFramePrincipal extends JFrame {
 		grammarCreator.add(productions);
 		grammarCreator.add(editButton("Crear gramatica", Events.CREATE_GRAMMAR.name()));
 		add(grammarCreator);
+
+		revalidate();
+		repaint();
 	}
 
+	public void addPanelGrammar() {
+		remove(grammarCreator);
+		grammar = new JPanel();
+		grammar.setLayout(new GridLayout(4, 1));
+		grammar.add(editButton("Mostrar gramatica", Events.SHOW_GRAMMAR.name()));
+		grammar.add(editButton("Buscar palabra", Events.SEARCH_WORD.name()));
+		grammar.add(editButton("Crear nueva gramatica", Events.CREATE_NEW_GRAMMAR.name()));
+		grammar.add(editButton("Salir", Events.EXIT.name()));
+		add(grammar);
+		revalidate();
+		repaint();
+	}
+	
+	public void showGrammar(Grammar grammar) {
+		remove(this.grammar);
+		JPanel grammarShow = new JPanel();
+		grammarShow.add(new JLabel(grammar.getTerminals().toString()));
+		grammarShow.add(new JLabel(grammar.getNoTerminals().toString()));
+		grammarShow.add(new JLabel(grammar.getAxiomticSymbol()));
+		grammarShow.add(new JLabel(grammar.getProductions().toString()));
+		add(grammarShow);
+		revalidate();
+		repaint();
+	}
+	
 	private JButton editButton(String name, String commandName) {
 		JButton btn = new JButton(name);
 		btn.setActionCommand(commandName);
@@ -78,17 +108,5 @@ public class MyJFramePrincipal extends JFrame {
 		return productions.getText().replaceAll("\\s", "");
 	}
 
-	public void resetJTextFile() {
-		terminals.setText("");
-		noTerminals.setText("");
-		axiomaticSymbol.setText("");
-		productions.setText("");
-		
-	}
-	
-	public void addPanelGrammar() {
-		remove(grammarCreator);
-		revalidate();
-		repaint();
-	}
+
 }

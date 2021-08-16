@@ -28,6 +28,17 @@ public class Presenter implements ActionListener {
 		case CREATE_GRAMMAR:
 			createGrammar();
 			break;
+		case SHOW_GRAMMAR:
+			framePrincipal.showGrammar(grammar);
+			break;
+		case CREATE_NEW_GRAMMAR:
+			framePrincipal.addGrammarCreator();
+			break;
+		case SEARCH_WORD:
+			break;
+		case EXIT:
+			System.exit(0);
+			break;
 		}
 	}
 
@@ -45,8 +56,8 @@ public class Presenter implements ActionListener {
 				&& valideAxiomaticSymbol(noTerminals, axiomatic)) {
 			grammar = new Grammar(terminals, noTerminals, axiomatic, productions);
 			grammar.showTree();
-			framePrincipal.resetJTextFile();
 			JOptionPane.showMessageDialog(null,"Gramatica creada con exito", "Completado", JOptionPane.PLAIN_MESSAGE);
+			framePrincipal.addPanelGrammar();
 		} else {
 			JOptionPane.showMessageDialog(null,
 					"Los simbolos de las producciones no coinciden con los simbolos terminales o no terminales"
