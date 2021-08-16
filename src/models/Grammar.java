@@ -48,4 +48,7 @@ public class Grammar {
 		}
 	}
 
+	public GrammarTree getGrammarTree() {
+		return grammarTree;
+	}
 }

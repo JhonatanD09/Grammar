@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -8,9 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import models.Grammar;
+import models.NodeProduction;
 import presenters.Events;
 
 public class MyJFramePrincipal extends JFrame {
@@ -20,8 +26,10 @@ public class MyJFramePrincipal extends JFrame {
 	private JTextField terminals, noTerminals, axiomaticSymbol, productions;
 	private ActionListener l;
 	private JPanel grammarCreator, grammar;
-
+	private JTree jTree;
 	private JPanel grammarShow;
+
+	private JPanel jPanelShowTree;
 
 	public MyJFramePrincipal(ActionListener l) {
 		setSize(600, 600);
@@ -59,22 +67,19 @@ public class MyJFramePrincipal extends JFrame {
 
 	public void addPanelGrammar() {
 		remove(grammarCreator);
-		grammar = new JPanel();
-		grammar.setLayout(new GridLayout(4, 1));
-		grammar.add(editButton("Mostrar gramatica", Events.SHOW_GRAMMAR.name()));
-		grammar.add(editButton("Buscar palabra", Events.SEARCH_WORD.name()));
-		grammar.add(editButton("Crear nueva gramatica", Events.CREATE_NEW_GRAMMAR.name()));
-		grammar.add(editButton("Salir", Events.EXIT.name()));
-		add(grammar);
-		revalidate();
-		repaint();
+		configurePanelGrammarCreator();
 	}
 	
 	public void addPanelGrammar(JPanel jPanel) {
 		remove(jPanel);
+		configurePanelGrammarCreator();
+	}
+
+	private void configurePanelGrammarCreator() {
 		grammar = new JPanel();
-		grammar.setLayout(new GridLayout(4, 1));
+		grammar.setLayout(new GridLayout(5, 1));
 		grammar.add(editButton("Mostrar gramatica", Events.SHOW_GRAMMAR.name()));
+		grammar.add(editButton("Mostrar arbol de la gramatica", Events.SHOW_GRAMMAR_TREE.name()));
 		grammar.add(editButton("Buscar palabra", Events.SEARCH_WORD.name()));
 		grammar.add(editButton("Crear nueva gramatica", Events.CREATE_NEW_GRAMMAR.name()));
 		grammar.add(editButton("Salir", Events.EXIT.name()));
@@ -97,8 +102,55 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
+	//--------------------------------------------------------------------------------------
+	
+	public void addJtree(NodeProduction nodeProduction) {
+		remove(grammar);
+		jPanelShowTree = new JPanel();
+		jPanelShowTree.setLayout(new BorderLayout());
+		paintTree(nodeProduction);
+		jPanelShowTree.add(new JScrollPane(jTree),BorderLayout.CENTER);
+		jPanelShowTree.add(editButton("Regresar", Events.EXIT_TO_SHOW_TREE.name()),BorderLayout.SOUTH);
+		add(jPanelShowTree);
+		revalidate(); 
+		repaint();
+	}
+	
+	public void paintTree(NodeProduction iNode) {
+		jTree = new JTree();
+		DefaultMutableTreeNode visualRoot = new DefaultMutableTreeNode(iNode.getProduction());
+		for (NodeProduction child : iNode.getChilds()){
+			addChild(visualRoot, child);
+		}
+		DefaultTreeModel treeModel = new DefaultTreeModel(visualRoot);
+		jTree.setModel(treeModel);
+
+		expandAll();
+		jTree.repaint();
+	}
+
+	private void addChild(DefaultMutableTreeNode father, NodeProduction base) {
+		DefaultMutableTreeNode visualNode = new DefaultMutableTreeNode(base.getProduction());
+		father.add(visualNode);
+		for (NodeProduction child : base.getChilds()) {
+			addChild(visualNode, child);
+		}
+	}
+
+	private void expandAll() {
+		for (int i = 0; i < jTree.getRowCount(); i++) {
+			jTree.expandRow(i);
+		}
+	}
+
+	//-----------------------------------------------------------------------
+	
 	public void exitToMainShow() {
 		addPanelGrammar(grammarShow);
+	}
+	
+	public void exitToShowTree() {
+		addPanelGrammar(jPanelShowTree);
 	}
 	
 	private JLabel editLabel(String text, String title) {

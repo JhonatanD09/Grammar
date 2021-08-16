@@ -31,13 +31,20 @@ public class Presenter implements ActionListener {
 		case SHOW_GRAMMAR:
 			framePrincipal.showGrammar(grammar);
 			break;
+		case SHOW_GRAMMAR_TREE:
+			framePrincipal.addJtree(grammar.getGrammarTree().getRoot());
+			break;
 		case CREATE_NEW_GRAMMAR:
 			framePrincipal.addGrammarCreator();
 			break;
 		case SEARCH_WORD:
+			JOptionPane.showMessageDialog(null, "TO DO");
 			break;
 		case EXIT_TO_SHOW:
 			framePrincipal.exitToMainShow();
+			break;
+		case EXIT_TO_SHOW_TREE:
+			framePrincipal.exitToShowTree();
 			break;
 		case EXIT:
 			System.exit(0);
@@ -64,7 +71,7 @@ public class Presenter implements ActionListener {
 		} else {
 			JOptionPane.showMessageDialog(null,
 					"Los simbolos de las producciones no coinciden con los simbolos terminales o no terminales"
-					+ " o no hay una produccion que "
+					+ "o no hay una produccion que "
 					+ "inicie con el simbolo inicial axomatico",
 					"Error en la gramatica", JOptionPane.ERROR_MESSAGE);
 		}
