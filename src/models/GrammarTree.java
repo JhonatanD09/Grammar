@@ -8,23 +8,26 @@ public class GrammarTree {
 	private ArrayList<Production> productions;
 	private ArrayList<String> noTerminals;
 	private ArrayList<String> pathWord;
+	private String temp;
+	private int count;
 
-	public GrammarTree(String initialSymbol, ArrayList<String>noTerminals, ArrayList<Production> productions) {
+	public GrammarTree(String initialSymbol, ArrayList<String> noTerminals, ArrayList<Production> productions) {
 		this.root = new NodeProduction(initialSymbol);
-		this.rootTreeWord = new NodeProduction(initialSymbol);
+		this.rootTreeWord = new NodeProduction(initialSymbol, initialSymbol);
 		this.productions = productions;
 		this.noTerminals = noTerminals;
-		this.pathWord = new ArrayList<String>();
+		temp = "";
 		addProductions();
 	}
 
 	public NodeProduction getRoot() {
 		return root;
 	}
-	
+
 	public void searchWord(String word) {
-		int limit = ( word.length()+ noTerminals.size());
-		treeWord(rootTreeWord,1,limit,word);	
+		this.pathWord = new ArrayList<String>();
+		int limit = (word.length() + noTerminals.size());
+		treeWord(rootTreeWord, limit, word);
 		System.out.println(pathWord.toString());
 	}
 
@@ -36,8 +39,9 @@ public class GrammarTree {
 		for (Production production : productions) {
 			for (int i = 0; i < nodeProduction.getProduction().length(); i++) {
 				if (production.getProducer().equals(String.valueOf(nodeProduction.getProduction().charAt(i)))) {
-					nodeProduction.addChild(nodeProduction.getProduction().replace(production.getProducer(),
-							production.getProduction()));
+					String temp = nodeProduction.getProduction().replace(production.getProducer(),
+							production.getProduction());
+					nodeProduction.addChild(temp);
 				}
 			}
 		}
@@ -48,27 +52,29 @@ public class GrammarTree {
 			}
 		}
 	}
-	
-	private void treeWord(NodeProduction nodeProduction, int count, int limit, String word) {
+
+	private void treeWord(NodeProduction nodeProduction, int limit, String word) {
 		for (Production production : productions) {
 			for (int i = 0; i < nodeProduction.getProduction().length(); i++) {
 				if (production.getProducer().equals(String.valueOf(nodeProduction.getProduction().charAt(i)))) {
-					String temp = nodeProduction.getProduction().replace(production.getProducer(),
-							production.getProduction());
-					nodeProduction.addChild(temp);
-					if (temp.equals(word)) {
-						pathWord.add(temp);
-						pathWord = createPath(nodeProduction);
-						count = limit;
-						return;
-					}
+					temp = nodeProduction.getProduction().replace(production.getProducer(), production.getProduction());
+					nodeProduction.addChild(temp, production.getProduction());
+				}
+				if (temp.equals(word)) {
+					pathWord.add(production.getProduction());
+					pathWord = createPath(nodeProduction);
+					count = limit;
+					return;
 				}
 			}
+			if (count == limit) {
+				return;
+			}
 		}
-		if (count < limit ) {
+		if (count < limit) {
 			count++;
 			for (NodeProduction production : nodeProduction.getChilds()) {
-				 treeWord(production, count, limit,word);
+				treeWord(production, limit, word);
 			}
 		}
 	}
@@ -76,13 +82,13 @@ public class GrammarTree {
 	private ArrayList<String> createPath(NodeProduction nodeProduction) {
 		NodeProduction aux = nodeProduction;
 		while (aux != rootTreeWord) {
-			pathWord.add(aux.getProduction());
+			pathWord.add(aux.getProducer());
 			aux = searchDad(aux);
 		}
-		pathWord.add(rootTreeWord.getProduction());
+		pathWord.add(rootTreeWord.getProducer());
 		return pathWord;
 	}
-	
+
 	public NodeProduction searchDad(NodeProduction id) {
 		for (int i = 0; i < rootTreeWord.getChilds().size(); i++) {
 			if (rootTreeWord.searchChild(id)) {
@@ -108,6 +114,9 @@ public class GrammarTree {
 		return null;
 
 	}
-
+	
+	public ArrayList<String> getPathWord() {
+		return pathWord;
+	}
 
 }

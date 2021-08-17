@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import models.Grammar;
 import models.NodeProduction;
+import models.TreeWord;
 import presenters.Events;
 
 public class MyJFramePrincipal extends JFrame {
@@ -26,7 +27,7 @@ public class MyJFramePrincipal extends JFrame {
 	private JPanel grammarCreator, grammar;
 	private JTree jTree;
 	private JPanel grammarShow;
-
+	private TreeGrammar treeGrammar;
 	private JPanel jPanelShowTree;
 
 	public MyJFramePrincipal(ActionListener l) {
@@ -100,6 +101,14 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
+	
+	public void showWordTree(TreeWord grammar) {
+		remove(this.grammar);
+		treeGrammar = new TreeGrammar(grammar);
+		add(treeGrammar);
+		revalidate();
+		repaint();
+	}
 	//--------------------------------------------------------------------------------------
 	
 	public void addJtree(NodeProduction nodeProduction) {

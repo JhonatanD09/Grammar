@@ -39,6 +39,7 @@ public class Presenter implements ActionListener {
 			break;
 		case SEARCH_WORD:
 			grammar.searchWord(JOptionPane.showInputDialog("Palabra"));
+			framePrincipal.showWordTree(grammar.getTree());
 			break;
 		case EXIT_TO_SHOW:
 			framePrincipal.exitToMainShow();
