@@ -9,6 +9,7 @@ public class Grammar {
 	private String axiomticSymbol;
 	private ArrayList<Production> productions;
 	private GrammarTree grammarTree;
+	private boolean isWordInGrammar;
 
 	public Grammar(ArrayList<String> terminals, ArrayList<String> noTerminals, String axiomticSymbol,
 			ArrayList<Production> productions) {
@@ -47,6 +48,11 @@ public class Grammar {
 	public TreeWord getTree() {
 		ArrayList<String> pathWord = grammarTree.getPathWord();
 		Collections.reverse(pathWord);
+		if (pathWord.size() == 0) {
+			isWordInGrammar = false;
+		}else {
+			isWordInGrammar = true;
+		}
 		TreeWord treeWord = new TreeWord();
 		for (String pw : pathWord) {
 			if (pw.length() == 1) {
@@ -84,5 +90,9 @@ public class Grammar {
 
 	public GrammarTree getGrammarTree() {
 		return grammarTree;
+	}
+
+	public boolean isWordInGramar() {
+		return isWordInGrammar;
 	}
 }

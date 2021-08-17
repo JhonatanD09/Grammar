@@ -38,8 +38,14 @@ public class Presenter implements ActionListener {
 			framePrincipal.addGrammarCreator();
 			break;
 		case SEARCH_WORD:
-			grammar.searchWord(JOptionPane.showInputDialog("Palabra"));
-			framePrincipal.showWordTree(grammar.getTree());
+			String word = JOptionPane.showInputDialog("Palabra");
+			grammar.searchWord(word);
+			if (grammar.isWordInGramar()) {
+				framePrincipal.showWordTree(grammar.getTree());
+			} else {
+				JOptionPane.showMessageDialog(null, "La palabra " + word + "  no pertenece al lenguaje", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 			break;
 		case EXIT_TO_SHOW:
 			framePrincipal.exitToMainShow();
@@ -67,13 +73,12 @@ public class Presenter implements ActionListener {
 				&& valideAxiomaticSymbol(noTerminals, axiomatic)) {
 			grammar = new Grammar(terminals, noTerminals, axiomatic, productions);
 //			grammar.showTree();
-			JOptionPane.showMessageDialog(null,"Gramatica creada con exito", "Completado", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Gramatica creada con exito", "Completado", JOptionPane.PLAIN_MESSAGE);
 			framePrincipal.addPanelGrammar();
 		} else {
 			JOptionPane.showMessageDialog(null,
 					"Los simbolos de las producciones no coinciden con los simbolos terminales o no terminales"
-					+ "o no hay una produccion que "
-					+ "inicie con el simbolo inicial axomatico",
+							+ "o no hay una produccion que " + "inicie con el simbolo inicial axomatico",
 					"Error en la gramatica", JOptionPane.ERROR_MESSAGE);
 		}
 	}
