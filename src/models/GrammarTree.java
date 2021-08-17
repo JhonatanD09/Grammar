@@ -64,7 +64,7 @@ public class GrammarTree {
 				}
 			}
 		}
-		if (count < limit) {
+		if (count < limit ) {
 			count++;
 			for (NodeProduction production : nodeProduction.getChilds()) {
 				 treeWord(production, count, limit,word);
@@ -73,15 +73,14 @@ public class GrammarTree {
 	}
 
 	private ArrayList<String> createPath(NodeProduction nodeProduction) {
-		ArrayList<String> path= new ArrayList<String>();
 		NodeProduction aux = nodeProduction;
 		System.out.println(aux.getProduction());
 		while (aux != rootTreeWord) {
-			path.add(aux.getProduction());
+			pathWord.add(aux.getProduction());
 			aux = searchDad(aux);
 		}
-		path.add(rootTreeWord.getProduction());
-		return path;
+		pathWord.add(rootTreeWord.getProduction());
+		return pathWord;
 	}
 	
 	public NodeProduction searchDad(NodeProduction id) {
