@@ -43,14 +43,14 @@ public class Grammar {
 		grammarTree.searchWord(word);
 	}
 
-	private void showTree(NodeProduction production, String tab, int id) {
-		tab+=" ";
-		id++;
-		System.out.println(tab +id+  production.getProduction());
-		for (NodeProduction p : production.getChilds()) {
-			showTree(p, tab,id);
-		}
-	}
+//	private void showTree(NodeProduction production, String tab, int id) {
+//		tab+=" ";
+//		id++;
+//		System.out.println(tab +id+  production.getProduction());
+//		for (NodeProduction p : production.getChilds()) {
+//			showTree(p, tab,id);
+//		}
+//	}
 
 	public GrammarTree getGrammarTree() {
 		return grammarTree;

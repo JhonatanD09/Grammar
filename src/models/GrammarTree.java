@@ -59,6 +59,7 @@ public class GrammarTree {
 					if (temp.equals(word)) {
 						pathWord.add(temp);
 						pathWord = createPath(nodeProduction);
+						count = limit;
 						return;
 					}
 				}
@@ -74,7 +75,6 @@ public class GrammarTree {
 
 	private ArrayList<String> createPath(NodeProduction nodeProduction) {
 		NodeProduction aux = nodeProduction;
-		System.out.println(aux.getProduction());
 		while (aux != rootTreeWord) {
 			pathWord.add(aux.getProduction());
 			aux = searchDad(aux);
