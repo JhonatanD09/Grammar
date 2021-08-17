@@ -18,6 +18,7 @@ public class Grammar {
 		this.noTerminals = noTerminals;
 		this.axiomticSymbol = axiomticSymbol;
 		this.productions = productions;
+		isWordInGrammar = true;
 		grammarTree = new GrammarTree(axiomticSymbol, noTerminals, productions);
 	}
 

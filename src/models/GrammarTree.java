@@ -28,7 +28,6 @@ public class GrammarTree {
 		this.pathWord = new ArrayList<String>();
 		int limit = (word.length() + noTerminals.size());
 		treeWord(rootTreeWord, limit, word);
-		System.out.println(pathWord.toString());
 	}
 
 	private void addProductions() {
