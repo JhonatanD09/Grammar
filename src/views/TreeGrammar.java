@@ -42,6 +42,7 @@ public class TreeGrammar extends JPanel {
 			g.setColor(Color.BLACK);
 			g.drawString(node.getData() + "", x+(DIAMETER_OVAL/3), y+(2*(DIAMETER_OVAL/3)));
 			g.setColor(Color.GREEN);
+<<<<<<< HEAD
 			if (node.getIzq()!=null) {
 				g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x - (getWidth() / treeWord.getAltura())+(DIAMETER_OVAL/2), y + getHeight()/heightvar);
 			}
@@ -52,6 +53,12 @@ public class TreeGrammar extends JPanel {
 			// g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x + ((x - xRoot)/2)+(DIAMETER_OVAL/2), y + VALUE_PRINT+DIAMETER_OVAL);
 			printTree(node.getIzq(), x - (getWidth() / treeWord.getAltura()), x, y + getHeight()/heightvar, g);
 			printTree(node.getDer(), x + (getWidth() / treeWord.getAltura()), x, y + getHeight()/heightvar, g);
+=======
+			g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x - ((x - xRoot)/2)+(DIAMETER_OVAL/2), y + DIAMETER_OVAL*5);
+			g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x + ((x - xRoot)/2)+(DIAMETER_OVAL/2), y + DIAMETER_OVAL*5);
+			printTree(node.getIzq(), x - Math.abs((x - xRoot))/2, x, y + VALUE_PRINT, g);
+			printTree(node.getDer(), x + Math.abs((x - xRoot))/2, x, y + VALUE_PRINT, g);
+>>>>>>> 010018a1ea99f889f4f6f20b32895f384a5c39fd
 		}
 	}
 
