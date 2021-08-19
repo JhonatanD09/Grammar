@@ -7,11 +7,12 @@ public class TreeWord {
 	private int altura;
 
 	public TreeWord() {
-		altura = 0;
+		altura = 1;
 		root = null;
 	}
 
 	public void add(String node, String dataIzq, String dataDer, String puntero) {
+		altura++;
 		if (root == null) {
 			root = new NodeTreeWord(puntero);
 			actual = root;
