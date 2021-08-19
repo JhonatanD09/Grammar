@@ -13,9 +13,7 @@ public class TreeGrammar extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String PINK = "#ffb8c1";
 	private static final int DIAMETER_OVAL = 30;
-	private static final int VALUE_PRINT = 100;
 	private TreeWord treeWord;
 
 	public TreeGrammar(TreeWord treeWord) {
