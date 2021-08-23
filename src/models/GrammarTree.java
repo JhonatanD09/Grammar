@@ -84,7 +84,7 @@ public class GrammarTree {
 				}
 			}
 		}
-		if (count < 5) {
+		if (count < limit) {
 			count++;
 			for (NodeProduction production : nodeProduction.getChilds()) {
 				addProductions(production, count, limit);
@@ -108,8 +108,7 @@ public class GrammarTree {
 				}
 			}
 		}
-		System.out.println(8);
-		if (count < 8) {
+		if (count < limit) {
 			count++;
 			for (NodeProduction production : nodeProduction.getChilds()) {
 				treeWord(production, limit, word);
