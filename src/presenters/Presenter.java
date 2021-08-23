@@ -38,14 +38,7 @@ public class Presenter implements ActionListener {
 			framePrincipal.addGrammarCreator();
 			break;
 		case SEARCH_WORD:
-			String word = JOptionPane.showInputDialog("Palabra");
-			grammar.searchWord(word);
-			if (grammar.isWordInGramar()) {
-				framePrincipal.showWordTree(grammar.getTree());
-			} else {
-				JOptionPane.showMessageDialog(null, "La palabra " + word + "  no pertenece al lenguaje", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			searchWord();
 			break;
 		case EXIT_TO_SHOW:
 			framePrincipal.exitToMainShow();
@@ -56,6 +49,17 @@ public class Presenter implements ActionListener {
 		case EXIT:
 			System.exit(0);
 			break;
+		}
+	}
+
+	private void searchWord() {
+		String word = JOptionPane.showInputDialog("Palabra");
+		grammar.searchWord(word);
+		if (grammar.isWordInGramar()) {
+			framePrincipal.showWordTree(grammar.getTree());
+		} else {
+			JOptionPane.showMessageDialog(null, "La palabra " + word + "  no pertenece al lenguaje", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
