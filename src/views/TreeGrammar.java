@@ -9,10 +9,13 @@ import models.TreeWord;
 
 public class TreeGrammar extends JPanel {
 
-	/**
-	 * 
+	/*
+	 * esta clase se encarga de graficar el arbol particular de una palabra
 	 */
 	private static final long serialVersionUID = 1L;
+	/*
+	 * el siguiente atributo se encarga de darle un diametro a cada nodo del arbol
+	 */
 	private static final int DIAMETER_OVAL = 30;
 	private TreeWord treeWord;
 
@@ -34,6 +37,13 @@ public class TreeGrammar extends JPanel {
 		printTree(treeWord.getRoot(), x, 0, y, g);
 	}
 
+	/**
+	 * @param node parámetro que recibe el nodo a pintar
+	 * @param x parámetro que indica la posicion en x que tomará el nodo que se pintará
+	 * @param xRoot parámetro 
+	 * 
+	 */
+
 	private void printTree(NodeTreeWord node, int x, int xRoot, int y, Graphics g) {
 		int heightvar = treeWord.getAltura();
 		if (node != null) {
@@ -48,8 +58,6 @@ public class TreeGrammar extends JPanel {
 			if (node.getDer()!=null) {
 				g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x + (getWidth() / treeWord.getAltura()), y + getHeight()/heightvar);
 			}
-			// g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x - ((x - xRoot)/2)+(DIAMETER_OVAL/2), y + VALUE_PRINT+DIAMETER_OVAL);
-			// g.drawLine(x+(DIAMETER_OVAL/2), y+DIAMETER_OVAL, x + ((x - xRoot)/2)+(DIAMETER_OVAL/2), y + VALUE_PRINT+DIAMETER_OVAL);
 			printTree(node.getIzq(), x - (getWidth() / treeWord.getAltura()), x, y + getHeight()/heightvar, g);
 			printTree(node.getDer(), x + (getWidth() / treeWord.getAltura()), x, y + getHeight()/heightvar, g);
 		}
