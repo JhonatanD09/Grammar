@@ -7,11 +7,12 @@ import javax.swing.JPanel;
 import models.NodeTreeWord;
 import models.TreeWord;
 
+
+/*
+ * esta clase se encarga de graficar el arbol particular de una palabra
+ */
 public class TreeGrammar extends JPanel {
 
-	/*
-	 * esta clase se encarga de graficar el arbol particular de una palabra
-	 */
 	private static final long serialVersionUID = 1L;
 	/*
 	 * el siguiente atributo se encarga de darle un diametro a cada nodo del arbol
@@ -19,10 +20,17 @@ public class TreeGrammar extends JPanel {
 	private static final int DIAMETER_OVAL = 30;
 	private TreeWord treeWord;
 
+	/*
+	 * metodo constructor de la clase TreeGrammar
+	 */
 	public TreeGrammar(TreeWord treeWord) {
 		this.treeWord = treeWord;
 	}
 
+	
+	/*
+	 * el siguiente método se encarga de graficar 
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -38,9 +46,11 @@ public class TreeGrammar extends JPanel {
 	}
 
 	/**
+	 * el siguiente método se encarga de graficar nodo a nodo mediante recursividad
 	 * @param node parámetro que recibe el nodo a pintar
-	 * @param x parámetro que indica la posicion en x que tomará el nodo que se pintará
-	 * @param xRoot parámetro 
+	 * @param x parámetro que indica la posicion en x que tomará el nodo que se graficará
+	 * @param xRoot parámetro que recibe la posicion x del nodo padre
+	 * @param y parámetro que indicará la altura del nodo que se graficará
 	 * 
 	 */
 

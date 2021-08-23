@@ -23,22 +23,40 @@ public class GrammarTree {
 	public NodeProduction getRoot() {
 		return root;
 	}
-
+	
+/**
+ * Metodo para buscar una palabra en la gramatica
+ * @param word (palabra a buscar)
+ * 
+ * El metodo crea una lista para guardar la composicion de la palabra
+ * El limite es la cantidad tentatiba de generaciones que se debe hacer 
+ * para llegar a la palabra que se busca
+ * 
+ * llama al metodo treeWord que se encarga degenerar el arbol particular de una palabra
+ */
 	public void searchWord(String word) {
 		this.pathWord = new ArrayList<String>();
 		int limit = (word.length() + noTerminals.size());
 		treeWord(rootTreeWord, limit, word);
 	}
-
+	
+/**
+ * llama al metodo recursivo de addProductions y le ingresa como 
+ * datos de partida el nodo raiz, el contador inicia en 1, y se define el 
+ * limite donde se va a cortar el arbol
+ */
 	private void addProductions() {
 		addProductions(root, 1, 5);
 	}
+	
 /**
  * Metodo para generar arbol general de la gramatica
- * @param nodeProduction
- * @param count
- * @param limit
+ * @param nodeProduction (el nodo padre al que se le agregaran los datos)
+ * @param count (cuenta los niveles del arbol para detenerlo en un nivel pre establecido)
+ * @param limit (define el limite en el cual se detiene la generacion del arbol)
  * 
+ * recorre las producciones y cada que encuentre en los datos de los hijos del nodo
+ * un simbolo no terminal que genera una produccion, esta es agregada
  */
 	private void addProductions(NodeProduction nodeProduction, int count, int limit) {
 		for (Production production : productions) {

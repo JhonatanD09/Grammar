@@ -18,10 +18,20 @@ import models.NodeProduction;
 import models.TreeWord;
 import presenters.Events;
 
+/**
+ * clase encargada de graficar el frame principal en el que se ingresará una gramática y también se imprimirá el menú
+ */
 public class MyJFramePrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+/**
+ * @atributo terminals, noTerminals, axiomaticSymbol, productions son textos estáticos que se muestran para la construccion inicial de la gramática
+ * @atributo grammarCreator, grammar son jpanels en grammarCreator se crea la gramatica y en grammar se muestran los botones para interactuar con la gramatica creada
+ * @atributo jTree 
+ * @atributo grammarShow Jpanel encargado de mostrar la gramática
+ * @atributo treeGrammar instancia de la clase encargada de pintar un arbol
+ * @atributo jPanelShowTree JPanel encargado de imprimir el arbol
+ */
 	private JTextField terminals, noTerminals, axiomaticSymbol, productions;
 	private ActionListener l;
 	private JPanel grammarCreator, grammar;
@@ -30,6 +40,10 @@ public class MyJFramePrincipal extends JFrame {
 	private TreeGrammar treeGrammar;
 	private JPanel jPanelShowTree;
 
+	/**
+	 * 
+	 * @param l instancia del ActionListener, necesario para el uso de eventos
+	 */
 	public MyJFramePrincipal(ActionListener l) {
 		setSize(600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,6 +53,9 @@ public class MyJFramePrincipal extends JFrame {
 		grammar = new JPanel();
 	}
 
+	/**
+	 * método encargado de agregar una nueva gramática
+	 */
 	public void addGrammarCreator() {
 		remove(grammar);
 
@@ -64,16 +81,26 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 
+	/**
+	 * método encargado de agregar un nuevo panel de gramatica
+	 */
 	public void addPanelGrammar() {
 		remove(grammarCreator);
 		configurePanelGrammarCreator();
 	}
-	
+
+	/**
+	 * método encargado de agregar un panes de gramática
+	 * @param jPanel 
+	 */
 	public void addPanelGrammar(JPanel jPanel) {
 		remove(jPanel);
 		configurePanelGrammarCreator();
 	}
 
+	/**
+	 * 
+	 */
 	private void configurePanelGrammarCreator() {
 		grammar = new JPanel();
 		grammar.setLayout(new GridLayout(5, 1));
@@ -87,6 +114,10 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
+	/**
+	 * 
+	 * @param grammar
+	 */
 	public void showGrammar(Grammar grammar) {
 		remove(this.grammar);
 		grammarShow = new JPanel();
@@ -101,7 +132,10 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
-	
+	/**
+	 * 
+	 * @param grammar
+	 */
 	public void showWordTree(TreeWord grammar) {
 		remove(this.grammar);
 		treeGrammar = new TreeGrammar(grammar);
@@ -109,8 +143,11 @@ public class MyJFramePrincipal extends JFrame {
 		revalidate();
 		repaint();
 	}
-	//--------------------------------------------------------------------------------------
 	
+	/**
+	 * 
+	 * @param nodeProduction
+	 */
 	public void addJtree(NodeProduction nodeProduction) {
 		remove(grammar);
 		jPanelShowTree = new JPanel();
@@ -123,6 +160,10 @@ public class MyJFramePrincipal extends JFrame {
 		repaint();
 	}
 	
+	/**
+	 * 
+	 * @param iNode
+	 */
 	public void paintTree(NodeProduction iNode) {
 		jTree = new JTree();
 		DefaultMutableTreeNode visualRoot = new DefaultMutableTreeNode(iNode.getProduction());
@@ -136,6 +177,11 @@ public class MyJFramePrincipal extends JFrame {
 		jTree.repaint();
 	}
 
+	/**
+	 * 
+	 * @param father
+	 * @param base
+	 */
 	private void addChild(DefaultMutableTreeNode father, NodeProduction base) {
 		DefaultMutableTreeNode visualNode = new DefaultMutableTreeNode(base.getProduction());
 		father.add(visualNode);
@@ -144,29 +190,47 @@ public class MyJFramePrincipal extends JFrame {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	private void expandAll() {
 		for (int i = 0; i < jTree.getRowCount(); i++) {
 			jTree.expandRow(i);
 		}
 	}
 
-	//-----------------------------------------------------------------------
-	
+	/**
+	 * 
+	 */
 	public void exitToMainShow() {
 		addPanelGrammar(grammarShow);
 	}
 	
+	/**
+	 * 
+	 */
 	public void exitToShowTree() {
 		addPanelGrammar(jPanelShowTree);
 	}
 	
+	/**
+	 * 
+	 * @param text
+	 * @param title
+	 * @return
+	 */
 	private JLabel editLabel(String text, String title) {
 		JLabel jLabel = new JLabel(text);
 		jLabel.setBorder(BorderFactory.createTitledBorder(title));
 		return jLabel;
 	}
 	
-	
+	/**
+	 * 
+	 * @param name
+	 * @param commandName
+	 * @return
+	 */
 	private JButton editButton(String name, String commandName) {
 		JButton btn = new JButton(name);
 		btn.setActionCommand(commandName);
@@ -174,22 +238,43 @@ public class MyJFramePrincipal extends JFrame {
 		return btn;
 	}
 
+	/**
+	 * 
+	 * @param jTextField
+	 * @param title
+	 */
 	private void setJTextField(JTextField jTextField, String title) {
 		jTextField.setBorder(BorderFactory.createTitledBorder(title));
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getTerminals() {
 		return terminals.getText().replaceAll("\\s", "");
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getNoTerminals() {
 		return noTerminals.getText().replaceAll("\\s", "");
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getAxiomatic() {
 		return axiomaticSymbol.getText().replaceAll("\\s", "");
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getProductions() {
 		return productions.getText().replaceAll("\\s", "");
 	}
