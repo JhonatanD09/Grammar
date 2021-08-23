@@ -33,7 +33,13 @@ public class GrammarTree {
 	private void addProductions() {
 		addProductions(root, 1, 5);
 	}
-
+/**
+ * Metodo para generar arbol general de la gramatica
+ * @param nodeProduction
+ * @param count
+ * @param limit
+ * 
+ */
 	private void addProductions(NodeProduction nodeProduction, int count, int limit) {
 		for (Production production : productions) {
 			for (int i = 0; i < nodeProduction.getProduction().length(); i++) {
