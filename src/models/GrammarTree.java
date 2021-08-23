@@ -2,24 +2,39 @@ package models;
 
 import java.util.ArrayList;
 
+/**
+ * Clase encargada de generar el arbol de la gramatica 
+ * buscar una palabra en la gramatica
+ * @author jhona
+ *
+ */
 public class GrammarTree {
 
 	private NodeProduction root, rootTreeWord;
 	private ArrayList<Production> productions;
 	private ArrayList<String> noTerminals;
 	private ArrayList<String> pathWord;
-	private String temp;
 	private int count;
 
+	
+	/**
+	 * Metodo constructor de la clase
+	 * @param initialSymbol es el simbolo inicial axiomatico
+	 * @param noTerminals lista de simbolos no terminales
+	 * @param productions lista de producciones
+	 */
 	public GrammarTree(String initialSymbol, ArrayList<String> noTerminals, ArrayList<Production> productions) {
 		this.root = new NodeProduction(initialSymbol);
 		this.rootTreeWord = new NodeProduction(initialSymbol, initialSymbol);
 		this.productions = productions;
 		this.noTerminals = noTerminals;
-		temp = "";
 		addProductions();
 	}
-
+	
+/**
+ * Metodo que retorna la raiz del arbol de la gramatica
+ * @return la raiz del arbol de la gramatica
+ */
 	public NodeProduction getRoot() {
 		return root;
 	}
@@ -38,6 +53,7 @@ public class GrammarTree {
 		this.pathWord = new ArrayList<String>();
 		int limit = (word.length() + noTerminals.size());
 		treeWord(rootTreeWord, limit, word);
+		System.out.println(pathWord.toString());
 	}
 	
 /**
@@ -80,18 +96,16 @@ public class GrammarTree {
 		for (Production production : productions) {
 			for (int i = 0; i < nodeProduction.getProduction().length(); i++) {
 				if (production.getProducer().equals(String.valueOf(nodeProduction.getProduction().charAt(i)))) {
-					temp = nodeProduction.getProduction().replace(production.getProducer(), production.getProduction());
+					String temp  = nodeProduction.getProduction().replace(production.getProducer(), production.getProduction());
 					nodeProduction.addChild(temp, production.getProduction());
+					System.out.println(temp);
+					if (temp.equals(word)) {
+						pathWord.add(production.getProduction());
+						pathWord = createPath(nodeProduction);
+						count = limit;
+						return;
+					}
 				}
-				if (temp.equals(word)) {
-					pathWord.add(production.getProduction());
-					pathWord = createPath(nodeProduction);
-					count = limit;
-					return;
-				}
-			}
-			if (count == limit) {
-				return;
 			}
 		}
 		if (count < limit) {
@@ -111,7 +125,13 @@ public class GrammarTree {
 		pathWord.add(rootTreeWord.getProducer());
 		return pathWord;
 	}
-
+	
+/**
+ * Metodo que llama al recursivo searchDad
+ * 
+ * @param id 
+ * @return
+ */
 	public NodeProduction searchDad(NodeProduction id) {
 		for (int i = 0; i < rootTreeWord.getChilds().size(); i++) {
 			if (rootTreeWord.searchChild(id)) {
@@ -120,7 +140,13 @@ public class GrammarTree {
 		}
 		return searchDad(rootTreeWord, id);
 	}
-
+	
+	/**
+	 * Metodo que busca el nodo padre de un nodo determinado
+	 * @param node nodo donde se  busca el nodo hijo para saber si pertenece a la lista de hijos de nodo en que se busca
+	 * @param nodeChild nodo al que se le busca el nodo padre
+	 * @return retorna el nodo padre, o null si no lo encuentra
+	 */
 	private NodeProduction searchDad(NodeProduction node, NodeProduction nodeChild) {
 		if (!node.getChilds().isEmpty()) {
 			for (NodeProduction actual : node.getChilds()) {
@@ -138,6 +164,10 @@ public class GrammarTree {
 
 	}
 	
+	/**
+	 * Metodo get de la ruta de una palabra
+	 * @return una lista con la ruta de producciones necesarias para llegar a la palabra
+	 */
 	public ArrayList<String> getPathWord() {
 		return pathWord;
 	}

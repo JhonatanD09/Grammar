@@ -90,8 +90,8 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * método encargado de agregar un panes de gramática
-	 * @param jPanel 
+	 * método encargado de agregar un panel para agregar una gramática
+	 * @param jPanel jpanel en el que se espera que se incluyan los componentes para agregar una nueva gramática
 	 */
 	public void addPanelGrammar(JPanel jPanel) {
 		remove(jPanel);
@@ -99,7 +99,7 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
+	 * método encargado de configurar el panel principal para imprimir el menú
 	 */
 	private void configurePanelGrammarCreator() {
 		grammar = new JPanel();
@@ -115,8 +115,8 @@ public class MyJFramePrincipal extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param grammar
+	 * método encargado de imprimir la gramática
+	 * @param grammar instancia de la una clase Grammar de la cual se obtienen los simbolos y las producciones
 	 */
 	public void showGrammar(Grammar grammar) {
 		remove(this.grammar);
@@ -133,8 +133,8 @@ public class MyJFramePrincipal extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param grammar
+	 * método encargado de imprimir el arbol particular de una palabra mediante la clase TreeGrammar
+	 * @param grammar instancia de la clase grammar de la cual obtendremos el arbol particular de una palabra
 	 */
 	public void showWordTree(TreeWord grammar) {
 		remove(this.grammar);
@@ -145,8 +145,8 @@ public class MyJFramePrincipal extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param nodeProduction
+	 * agrega el arbol n-ario de las producciones 
+	 * @param nodeProduction instancia de la clase NodeProduction, la cual genera un arbol n-ario especial de la gramática
 	 */
 	public void addJtree(NodeProduction nodeProduction) {
 		remove(grammar);
@@ -161,8 +161,8 @@ public class MyJFramePrincipal extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param iNode
+	 * método encargado de construir el JTree para imprimir el arbol de una gramática
+	 * @param iNode instancia de la clase NodeProduction funciona como un nodo raiz del que se construiá todo el arbol
 	 */
 	public void paintTree(NodeProduction iNode) {
 		jTree = new JTree();
@@ -178,9 +178,9 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
-	 * @param father
-	 * @param base
+	 * el siguiente método se encarga de agregar un nodo hijo, es usado para la construccion del JTree
+	 * @param father instancia de la clase DefaultMutableTreeNode la cual se usa para indicar el nodo padre
+	 * @param base instancia de la clase NodeProduction es usada para asignar un nodo hijo
 	 */
 	private void addChild(DefaultMutableTreeNode father, NodeProduction base) {
 		DefaultMutableTreeNode visualNode = new DefaultMutableTreeNode(base.getProduction());
@@ -191,7 +191,7 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
+	 * método encargado de expandir el JTree
 	 */
 	private void expandAll() {
 		for (int i = 0; i < jTree.getRowCount(); i++) {
@@ -239,7 +239,7 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
+	 * el siguiente método cambia las areas en las que el usuario ingresa informacion
 	 * @param jTextField
 	 * @param title
 	 */

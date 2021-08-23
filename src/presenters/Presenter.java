@@ -102,8 +102,7 @@ public class Presenter implements ActionListener {
 		for (Production production : productions) {
 			for (int i = 0; i < production.getProduction().length(); i++) {
 				if ((valideTerminalsAndNoTerminals(terminals, "" + production.getProduction().charAt(i))
-						|| valideTerminalsAndNoTerminals(noTerminals, "" + production.getProduction().charAt(i)))
-						&& valideAxiomaticSymbol(noTerminals, production.getProducer())) {
+						|| valideTerminalsAndNoTerminals(noTerminals, "" + production.getProduction().charAt(i)))) {
 					temp = true;
 				} else {
 					temp = false;
