@@ -66,7 +66,7 @@ public class Grammar {
 	 */
 	public TreeWord getTree() {
 		ArrayList<String> pathWord = grammarTree.getPathWord();
-		Collections.reverse(pathWord);
+			Collections.reverse(pathWord);
 		if (pathWord.size() == 0) {
 			isWordInGrammar = false;
 		}else {
