@@ -10,11 +10,19 @@ import models.Grammar;
 import models.Production;
 import views.MyJFramePrincipal;
 
+/**
+ * Clase encargada de unir la logica del proyecto con la interfaz grafica
+ */
+
 public class Presenter implements ActionListener {
 
 	private MyJFramePrincipal framePrincipal;
 	private Grammar grammar;
 
+	/**
+	 * Metodo constructor de la clase
+	 * hace instancia de la vitsa y el modelo
+	 */
 	public Presenter() {
 
 		framePrincipal = new MyJFramePrincipal(this);
@@ -22,6 +30,10 @@ public class Presenter implements ActionListener {
 		framePrincipal.setVisible(true);
 	}
 
+	/**
+	 * Metodo encargado de recibir los eventos de la GUI y realizar su respectivo algoritmo 
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (Events.valueOf(e.getActionCommand())) {
@@ -52,6 +64,9 @@ public class Presenter implements ActionListener {
 		}
 	}
 
+	/**
+	 * Este metodo fachada es el encargado de buscar para verificar si el parametro ingresado esta o no denteo del lenguajes
+	 */
 	private void searchWord() {
 		String word = JOptionPane.showInputDialog("Palabra");
 		grammar.searchWord(word);
@@ -63,6 +78,9 @@ public class Presenter implements ActionListener {
 		}
 	}
 
+	/**
+	 * Metodo fachada encargado de recibir los datos de la vista realizando su respectiva validacion y crear la gramatica
+	 */
 	private void createGrammar() {
 		ArrayList<String> terminals = convert(framePrincipal.getTerminals());
 		ArrayList<String> noTerminals = convert(framePrincipal.getNoTerminals());
@@ -71,12 +89,18 @@ public class Presenter implements ActionListener {
 		grammarValidator(terminals, noTerminals, axiomatic, productions);
 	}
 
+	/**
+	 * Metodo fachada encargado de validar la gramatica
+	 * @param terminals lista de simbolos terminales
+	 * @param noTerminals lista de simbolos no terminales
+	 * @param axiomatic axioma
+	 * @param productions producciones correspondientes
+	 */
 	private void grammarValidator(ArrayList<String> terminals, ArrayList<String> noTerminals, String axiomatic,
 			ArrayList<Production> productions) {
 		if (valideSymbolsInProductions(terminals, noTerminals, productions)
 				&& valideAxiomaticSymbol(noTerminals, axiomatic)) {
 			grammar = new Grammar(terminals, noTerminals, axiomatic, productions);
-//			grammar.showTree();
 			JOptionPane.showMessageDialog(null, "Gramatica creada con exito", "Completado", JOptionPane.PLAIN_MESSAGE);
 			framePrincipal.addPanelGrammar();
 		} else {
@@ -87,6 +111,12 @@ public class Presenter implements ActionListener {
 		}
 	}
 
+	/**
+	 * Metodo fachada encargado de validar si un axioma pertenece o no a la lista de simbolos no terminales
+	 * @param noTerminals lista de simbolos no terminales
+	 * @param axiomatic axioma
+	 * @return si el axioma pertenece o no a la lista de simbolos no terminales
+	 */
 	private boolean valideAxiomaticSymbol(ArrayList<String> noTerminals, String axiomatic) {
 		for (String noTerminalsTemp : noTerminals) {
 			if (axiomatic.equals(noTerminalsTemp)) {
@@ -96,6 +126,13 @@ public class Presenter implements ActionListener {
 		return false;
 	}
 
+	/**
+	 * Metodo fachada que valida los simbolos contenidos en las producciones
+	 * @param terminals lista de simbolos terminales
+	 * @param noTerminals lista de simbolos no terminales
+	 * @param productions lista de producciones
+	 * @return si los simbolos terminales o no terminales que se usan en las producciones estan en las listas de simbolos terminales y no terminales 
+	 */
 	private boolean valideSymbolsInProductions(ArrayList<String> terminals, ArrayList<String> noTerminals,
 			ArrayList<Production> productions) {
 		boolean temp = false;
@@ -112,6 +149,12 @@ public class Presenter implements ActionListener {
 		return temp;
 	}
 
+	/**
+	 * Recibe un simbolo que hace parte de la produccion y valida si esta en los simbolos terminales o no terminales
+	 * @param terminals lista de simbolos terminales
+	 * @param symbol simbolo ingresado
+	 * @return true si el simbolo existe en los simbolos terminales o no terminales y false si no existe
+	 */
 	private boolean valideTerminalsAndNoTerminals(ArrayList<String> terminals, String symbol) {
 		for (String t : terminals) {
 			if (t.equals(symbol)) {
@@ -121,6 +164,11 @@ public class Presenter implements ActionListener {
 		return false;
 	}
 
+	/**
+	 * Convierte un texto separado por comas en un arraylist 
+	 * @param text texto a convertir en lista
+	 * @return lista compuesta por el texto desglozado
+	 */
 	private ArrayList<String> convert(String text) {
 		ArrayList<String> list = new ArrayList<String>();
 		String[] listText = text.split(",");
@@ -130,6 +178,12 @@ public class Presenter implements ActionListener {
 		return list;
 	}
 
+	/**
+	 * Recibe una cadena de texto que contiene una produccion, la converte en un arraylist,luego verifica que la produccion ese correcta o completa, de 
+	 *lo contrario muestra una advertencia
+	 * @param text produccion en forma de cadena de texto 
+	 * @return la produccion convertida de cadena de texto a arraylist
+	 */
 	private ArrayList<Production> convertProductions(String text) {
 		ArrayList<Production> productions = new ArrayList<Production>();
 		ArrayList<String> temp = convert(text);
