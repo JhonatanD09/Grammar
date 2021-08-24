@@ -72,8 +72,7 @@ public class Presenter implements ActionListener {
 	 */
 	private void searchWord() {
 		String word = JOptionPane.showInputDialog("Palabra");
-		grammar.searchWord(word);
-		if (grammar.isWordInGramar()) {
+		if (grammar.searchWord(word)) {
 			framePrincipal.showWordTree(grammar.getTree());
 		} else {
 			JOptionPane.showMessageDialog(null, "La palabra " + word + "  no pertenece al lenguaje", "Error",

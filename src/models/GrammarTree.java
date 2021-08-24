@@ -54,13 +54,15 @@ public class GrammarTree {
 	 * 
 	 *             llama al metodo treeWord que se encarga degenerar el arbol
 	 *             particular de una palabra
+	 *@return true si existe la palabra             
 	 */
-	public void searchWord(String word) {
+	public boolean searchWord(String word) {
 		this.pathWord = new ArrayList<String>();
 		int limit = (word.length() + (word.length() * noTerminals.size()));
 		this.rootTreeWord = new NodeProduction(initialSymbol, initialSymbol);
 		entrar = true;
 		treeWord(rootTreeWord, 1, limit, word);
+		return pathWord.size()==0?false:true;
 	}
 
 	/**
@@ -84,6 +86,7 @@ public class GrammarTree {
 	 *                       recorre las producciones y cada que encuentre en los
 	 *                       datos de los hijos del nodo un simbolo no terminal que
 	 *                       genera una produccion, esta es agregada
+	 *
 	 */
 	private void addProductions(NodeProduction nodeProduction, int count, int limit) {
 		for (Production production : productions) {

@@ -14,7 +14,6 @@ public class Grammar {
 	private String axiomticSymbol;
 	private ArrayList<Production> productions;
 	private GrammarTree grammarTree;
-	private boolean isWordInGrammar;
 
 	/**
 	 * Metodo constructor de la clase
@@ -30,7 +29,6 @@ public class Grammar {
 		this.noTerminals = noTerminals;
 		this.axiomticSymbol = axiomticSymbol;
 		this.productions = productions;
-		isWordInGrammar = true;
 		grammarTree = new GrammarTree(axiomticSymbol, noTerminals, productions);
 	}
 
@@ -54,8 +52,8 @@ public class Grammar {
 	 * metodo fachada del metodo de buscar una palabra
 	 * @param word palabra a buscar
 	 */
-	public void searchWord(String word) {
-		grammarTree.searchWord(word);
+	public boolean searchWord(String word) {
+		return grammarTree.searchWord(word);
 	}
 
 	/**
@@ -67,11 +65,6 @@ public class Grammar {
 	public TreeWord getTree() {
 		ArrayList<String> pathWord = grammarTree.getPathWord();
 			Collections.reverse(pathWord);
-		if (pathWord.size() == 0) {
-			isWordInGrammar = false;
-		}else {
-			isWordInGrammar = true;
-		}
 		TreeWord treeWord = new TreeWord();
 		for (String pw : pathWord) {
 			if (pw.length() == 1) {
@@ -113,12 +106,4 @@ public class Grammar {
 		return grammarTree;
 	}
 
-	/**
-	 * metodo que hace get al boolean que valida si una 
-	 * palabra pertenece al lenguaje
-	 * @return boolena de validacion de una palabra
-	 */
-	public boolean isWordInGramar() {
-		return isWordInGrammar;
-	}
 }
