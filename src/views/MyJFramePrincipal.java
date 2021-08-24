@@ -260,15 +260,15 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * método que retorna los símbolos terminales
+	 * @return 
 	 */
 	public String getTerminals() {
 		return terminals.getText().replaceAll("\\s", "");
 	}
 
 	/**
-	 * 
+	 * método que retorna los símbolos noterminales
 	 * @return
 	 */
 	public String getNoTerminals() {
@@ -276,7 +276,7 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
+	 * método que retorna los símbolos axiomáticos
 	 * @return
 	 */
 	public String getAxiomatic() {
@@ -284,7 +284,7 @@ public class MyJFramePrincipal extends JFrame {
 	}
 
 	/**
-	 * 
+	 * método que retorna las producciones
 	 * @return
 	 */
 	public String getProductions() {
