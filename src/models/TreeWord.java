@@ -10,6 +10,8 @@ public class TreeWord {
 	private NodeTreeWord root;
 	private NodeTreeWord actual;
 	private int altura;
+	private int RTendence = 0;
+	private int LTendence = 0;
 
 	/**
 	 * Metodo constuctor de la clase, inicializa la altura y la raiz
@@ -40,6 +42,10 @@ public class TreeWord {
 					actual.insert(dataIzq, dataDer);					
 			}
 		}
+		if(dataIzq!=null)
+			this.LTendence ++;
+		if(dataDer!=null)
+			this.RTendence ++;
 	}
 
 	/**
@@ -71,6 +77,17 @@ public class TreeWord {
 	 */
 	public int getAltura() {
 		return altura;
+	}
+
+	public int getTendence(){
+		int value=0;
+		if(this.LTendence < this.RTendence)
+			value = 1;
+		if(this.LTendence > this.RTendence)
+			value = -1;
+		if(this.LTendence == this.RTendence)
+			value = 0;
+		return value;
 	}
 
 }

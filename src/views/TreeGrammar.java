@@ -20,6 +20,7 @@ public class TreeGrammar extends JPanel {
 	 */
 	private static final int DIAMETER_OVAL = 30;
 	private TreeWord treeWord;
+	private int x;
 
 	/*
 	 * metodo constructor de la clase TreeGrammar
@@ -35,32 +36,20 @@ public class TreeGrammar extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		int x = 0;
+		x = 0;
 		if (!(treeWord.getRoot() == null)) {
-			if (treeWord.getRoot().getDer() != null) {
-				x = getWidth() / treeWord.getAltura();
-			}
-			if (treeWord.getRoot().getIzq() != null) {
-				x = ((getWidth() / treeWord.getAltura()) * (treeWord.getAltura() - 1));
-			}
-			int y = getHeight() / 10;
+				x = getWidth()/2;
+			int y = getHeight()/20;
 			printTree(treeWord.getRoot(), x, 0, y, g);
 		}
 	}
 
 	/**
-<<<<<<< HEAD
 	 * el siguiente método se encarga de graficar nodo a nodo mediante recursividad
 	 * @param node parámetro que recibe el nodo a pintar
 	 * @param x parámetro que indica la posicion en x que tomará el nodo que se graficará
 	 * @param xRoot parámetro que recibe la posicion x del nodo padre
 	 * @param y parámetro que indicará la altura del nodo que se graficará
-=======
-	 * @param node  parámetro que recibe el nodo a pintar
-	 * @param x     parámetro que indica la posicion en x que tomará el nodo que
-	 *              se pintará
-	 * @param xRoot parámetro
->>>>>>> e02c1101bd9d388b1f1c4d299dc4953dedb46eaf
 	 * 
 	 */
 
@@ -68,20 +57,22 @@ public class TreeGrammar extends JPanel {
 		int heightvar = treeWord.getAltura();
 		if (node != null) {
 			g.setColor(Color.ORANGE);
+			if(node.getDer()==null&&node.getIzq()==null)
+				g.setColor(Color.PINK);
 			g.fillOval(x, y, DIAMETER_OVAL, DIAMETER_OVAL);
 			g.setColor(Color.BLACK);
 			g.drawString(node.getData() + "", x + (DIAMETER_OVAL / 3), y + (2 * (DIAMETER_OVAL / 3)));
 			g.setColor(Color.GREEN);
 			if (node.getIzq() != null) {
 				g.drawLine(x + (DIAMETER_OVAL / 2), y + DIAMETER_OVAL,
-						x - (getWidth() / treeWord.getAltura()) + (DIAMETER_OVAL / 2), y + getHeight() / heightvar);
+						x - ((getWidth() / treeWord.getAltura())/2) + (DIAMETER_OVAL / 2), y + getHeight() / heightvar);
 			}
 			if (node.getDer() != null) {
-				g.drawLine(x + (DIAMETER_OVAL / 2), y + DIAMETER_OVAL, x + (getWidth() / treeWord.getAltura()),
+				g.drawLine(x + (DIAMETER_OVAL / 2), y + DIAMETER_OVAL, x + ((getWidth() / treeWord.getAltura())/2),
 						y + getHeight() / heightvar);
 			}
-			printTree(node.getIzq(), x - (getWidth() / treeWord.getAltura()), x, y + getHeight() / heightvar, g);
-			printTree(node.getDer(), x + (getWidth() / treeWord.getAltura()), x, y + getHeight() / heightvar, g);
+			printTree(node.getIzq(), x - ((getWidth() / treeWord.getAltura())/2), x, y + getHeight() / heightvar, g);
+			printTree(node.getDer(), x + ((getWidth() / treeWord.getAltura())/2), x, y + getHeight() / heightvar, g);
 		}
 	}
 

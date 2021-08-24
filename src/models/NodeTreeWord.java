@@ -11,6 +11,7 @@ public class NodeTreeWord {
 	 */
 	private String data;
 	private NodeTreeWord izq, der;
+	public int weight = 0;
 	
 	/**
 	 * método constructor de la clase NodeTreeWord
@@ -28,7 +29,7 @@ public class NodeTreeWord {
 	 * @param dataDer es la información que contendrá el nodo hijo derecho
 	 */
 	public void insert(String dataIzq,String dataDer) {
-		if (!dataIzq.equals("")) {			
+		if (!dataIzq.equals("")) {
 			izq = new NodeTreeWord(dataIzq);
 		}
 		if (!dataDer.equals("")) {
