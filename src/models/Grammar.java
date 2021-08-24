@@ -3,6 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * 
+ * @author jhona
+ *
+ */
+
 public class Grammar {
 
 	private ArrayList<String> terminals, noTerminals;
@@ -57,12 +63,12 @@ public class Grammar {
 		TreeWord treeWord = new TreeWord();
 		for (String pw : pathWord) {
 			if (pw.length() == 1) {
-				treeWord.add(noTerminal(pw), "" + pw.charAt(0), "", pathWord.get(0));
+				treeWord.add("" + pw.charAt(0), "", pathWord.get(0));
 			} else {
 				if (noTerminal(pw).equals("")) {
-					treeWord.add(noTerminal(pw), "" + pw, "", noTerminal(pw));
+					treeWord.add( "" + pw, "", noTerminal(pw));
 				} else {
-					treeWord.add(noTerminal(pw), "" + pw.charAt(0), "" + pw.charAt(1), noTerminal(pw));
+					treeWord.add( "" + pw.charAt(0), "" + pw.charAt(1), noTerminal(pw));
 				}
 			}
 		}
@@ -80,14 +86,6 @@ public class Grammar {
 		return "";
 	}
 
-//	private void showTree(NodeProduction production, String tab, int id) {
-//		tab+=" ";
-//		id++;
-//		System.out.println(tab +id+  production.getProduction());
-//		for (NodeProduction p : production.getChilds()) {
-//			showTree(p, tab,id);
-//		}
-//	}
 
 	public GrammarTree getGrammarTree() {
 		return grammarTree;

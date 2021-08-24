@@ -90,7 +90,16 @@ public class GrammarTree {
 			}
 		}
 	}
-
+	
+	/**
+	 * Metodo encargado de generar un arbol de la gramatica hasta que
+	 * se encuentre la palabra a buscar, cuando la encuentra crea la ruta de la 
+	 * palabra con el metodo createPath
+	 * @param nodeProduction recibe un nodo para buscar las producciones que genera
+	 * @param limit la cantidad de veces que se ejecuta la recursividad
+	 * @param word la palabra que se esta buscando
+	 */
+	
 	private void treeWord(NodeProduction nodeProduction, int limit, String word) {
 		for (Production production : productions) {
 			for (int i = 0; i < nodeProduction.getProduction().length(); i++) {
@@ -114,6 +123,12 @@ public class GrammarTree {
 		}
 	}
 
+	/**
+	 * Crea una lista con la ruta que compone la palabra, desde su composicion final
+	 * hasta el simbolo inicial axiomatico
+	 * @param nodeProduction nodo desde donde se pretende armar la ruta
+	 * @return una lista con la ruta que compone la palabra a buscar
+	 */
 	private ArrayList<String> createPath(NodeProduction nodeProduction) {
 		NodeProduction aux = nodeProduction;
 		while (aux != rootTreeWord) {
@@ -126,9 +141,9 @@ public class GrammarTree {
 	
 /**
  * Metodo que llama al recursivo searchDad
- * 
- * @param id 
- * @return
+ *
+ * @param id el nodo al que se le quiere buscar el padre
+ * @return el padre del nodo ingresado por parametro
  */
 	public NodeProduction searchDad(NodeProduction id) {
 		for (int i = 0; i < rootTreeWord.getChilds().size(); i++) {
