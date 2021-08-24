@@ -15,6 +15,7 @@ public class GrammarTree {
 	private ArrayList<String> noTerminals;
 	private ArrayList<String> pathWord;
 	private int count;
+	private String initialSymbol;
 
 	
 	/**
@@ -25,6 +26,7 @@ public class GrammarTree {
 	 */
 	public GrammarTree(String initialSymbol, ArrayList<String> noTerminals, ArrayList<Production> productions) {
 		this.root = new NodeProduction(initialSymbol);
+		this.initialSymbol = initialSymbol;
 		this.rootTreeWord = new NodeProduction(initialSymbol, initialSymbol);
 		this.productions = productions;
 		this.noTerminals = noTerminals;
@@ -50,8 +52,10 @@ public class GrammarTree {
  * llama al metodo treeWord que se encarga degenerar el arbol particular de una palabra
  */
 	public void searchWord(String word) {
+		this.count = 0;
 		this.pathWord = new ArrayList<String>();
-		int limit = (word.length() + noTerminals.size());
+		int limit = (word.length() + (word.length()*noTerminals.size()));
+		this.rootTreeWord = new NodeProduction(initialSymbol, initialSymbol);
 		treeWord(rootTreeWord, limit, word);
 	}
 	
@@ -110,6 +114,7 @@ public class GrammarTree {
 						pathWord.add(production.getProduction());
 						pathWord = createPath(nodeProduction);
 						count = limit;
+						rootTreeWord = null;
 						return;
 					}
 				}
@@ -186,3 +191,4 @@ public class GrammarTree {
 	}
 
 }
+
