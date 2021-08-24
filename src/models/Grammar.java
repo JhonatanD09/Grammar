@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 
- * @author jhona
- *
+ * Clase encargada de el manejo de todas las clases del modelo
+ * aqui se instancian cada una de ellas y esta clase es la que va al controlador
  */
 
 public class Grammar {
@@ -43,10 +42,6 @@ public class Grammar {
 	public ArrayList<String> getTerminals() {
 		return terminals;
 	}
-
-//	public void showTree() {
-//		showTree(grammarTree.getRoot(),"",0);
-//	}
 
 	public void searchWord(String word) {
 		grammarTree.searchWord(word);
