@@ -39,6 +39,7 @@ public class MyJFramePrincipal extends JFrame {
 	private JPanel grammarShow;
 	private TreeGrammar treeGrammar;
 	private JPanel jPanelShowTree;
+	private JPanel containerJPanel;
 
 	/**
 	 * 
@@ -138,8 +139,12 @@ public class MyJFramePrincipal extends JFrame {
 	 */
 	public void showWordTree(TreeWord grammar) {
 		remove(this.grammar);
+		containerJPanel = new JPanel();
+		containerJPanel.setLayout(new BorderLayout());
 		treeGrammar = new TreeGrammar(grammar);
-		add(treeGrammar);
+		containerJPanel.add(treeGrammar, BorderLayout.CENTER);
+		containerJPanel.add(editButton("Regresar al menu",Events.EXIT_TO_SHOW_WORD_TREE.name()),BorderLayout.SOUTH);
+		add(containerJPanel);
 		revalidate();
 		repaint();
 	}
@@ -204,6 +209,13 @@ public class MyJFramePrincipal extends JFrame {
 	 */
 	public void exitToMainShow() {
 		addPanelGrammar(grammarShow);
+	}
+	
+	/**
+	 * 
+	 */
+	public void exitToShowTreeWord() {
+		addPanelGrammar(containerJPanel);
 	}
 	
 	/**

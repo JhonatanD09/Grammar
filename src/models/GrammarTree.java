@@ -53,7 +53,6 @@ public class GrammarTree {
 		this.pathWord = new ArrayList<String>();
 		int limit = (word.length() + noTerminals.size());
 		treeWord(rootTreeWord, limit, word);
-		System.out.println(pathWord.toString());
 	}
 	
 /**
@@ -98,7 +97,6 @@ public class GrammarTree {
 				if (production.getProducer().equals(String.valueOf(nodeProduction.getProduction().charAt(i)))) {
 					String temp  = nodeProduction.getProduction().replace(production.getProducer(), production.getProduction());
 					nodeProduction.addChild(temp, production.getProduction());
-					System.out.println(temp);
 					if (temp.equals(word)) {
 						pathWord.add(production.getProduction());
 						pathWord = createPath(nodeProduction);

@@ -58,6 +58,9 @@ public class Presenter implements ActionListener {
 		case EXIT_TO_SHOW_TREE:
 			framePrincipal.exitToShowTree();
 			break;
+		case EXIT_TO_SHOW_WORD_TREE:
+			framePrincipal.exitToShowTreeWord();
+			break;
 		case EXIT:
 			System.exit(0);
 			break;
